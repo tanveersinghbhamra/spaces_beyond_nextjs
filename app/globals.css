@@ -661,6 +661,10 @@ html:not(.js-fade-ready) .hero__video {
 .navbar__link:hover {
     color: var(--color-gold);
 }
+.navbar__link.is-active {
+    color: var(--color-gold-dark);
+    font-weight: 700;
+}
 .navbar__link:hover::after {
     width: 100%;
 }
@@ -2926,6 +2930,7 @@ a.contact-info__value:hover {
 .calc-section {
     padding: var(--section-y) var(--section-x);
     background: var(--color-black-soft, #111111);
+    overflow-x: hidden;
 }
 
 /* ── Section header ── */
@@ -2951,6 +2956,7 @@ a.contact-info__value:hover {
     scrollbar-width: none;
     gap: 0;
     max-width: 100%;
+    min-width: 0;
 }
 .calc-tabs::-webkit-scrollbar {
     display: none;
