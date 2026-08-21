@@ -798,7 +798,7 @@ function PropertiesPanel({ data, setData, uploadFile }) {
     function addImg(i) {
         setData((d) => {
             const c = deepCopy(d);
-            if (c.properties[i].images.length >= 8) return c;
+            if (c.properties[i].images.length >= 20) return c;
             c.properties[i].images.push("");
             return c;
         });
@@ -846,7 +846,7 @@ function PropertiesPanel({ data, setData, uploadFile }) {
                 Property <em>Listings</em>
             </h1>
             <p className="ps">
-                Add, edit or remove listings. Up to 8 photos per property.
+                Add, edit or remove listings. Up to 20 photos per property.
             </p>
             <div className="il">
                 {props.map((p, i) => (
