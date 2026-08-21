@@ -97,16 +97,12 @@ export default function AdminPage() {
 
     async function loadData() {
         setStatus({ cls: "saving", text: "Loading…" });
-        const SU = process.env.NEXT_PUBLIC_SUPABASE_URL;
-        const SK = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
         try {
-            const r = await fetch(
-                `${SU}/rest/v1/content?key=eq.main&select=value`,
-                {
-                    headers: { apikey: SK, Authorization: `Bearer ${SK}` },
-                },
-            );
-            const rows = await r.json();
+            const r = await fetch("/api/content", {
+                headers: { "x-admin-key": pass },
+            });
+            if (!r.ok) throw new Error();
+            const { rows } = await r.json();
             if (rows.length && rows[0].value) {
                 const saved = JSON.parse(rows[0].value);
                 if (saved?.hero?.title) {
