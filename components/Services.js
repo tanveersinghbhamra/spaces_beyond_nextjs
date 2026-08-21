@@ -1,6 +1,6 @@
 const DIAMONDS = [
-    { num: "10+", label: "Years", dir: "is-up" },
-    { num: "6", label: "Service Lines", dir: "is-down" },
+    { num: "22+", label: "Years", dir: "is-up" },
+    { num: "8", label: "Service Lines", dir: "is-down" },
     { num: "$100M+", label: "Transacted", dir: "is-up" },
     { num: "24/7", label: "Concierge", dir: "is-down" },
 ];
