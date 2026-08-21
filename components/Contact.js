@@ -14,10 +14,19 @@ export default function Contact({ content }) {
         message: "",
     });
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
         setStatus("sending");
-        setTimeout(() => {
+        try {
+            const r = await fetch("/api/odoo-lead", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(form),
+            });
+            if (!r.ok) {
+                const e2 = await r.json();
+                throw new Error(e2.error || "Submission failed");
+            }
             setStatus("sent");
             setForm({
                 firstName: "",
@@ -27,7 +36,10 @@ export default function Contact({ content }) {
                 interest: "",
                 message: "",
             });
-        }, 1600);
+        } catch (err) {
+            console.error("[contact form]", err.message);
+            setStatus("error");
+        }
     };
 
     const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -238,8 +250,16 @@ export default function Contact({ content }) {
                             ? "✓ Message Sent"
                             : status === "sending"
                               ? "Sending…"
-                              : "Send Message →"}
+                              : status === "error"
+                                ? "Try Again"
+                                : "Send Message →"}
                     </button>
+                    {status === "error" && (
+                        <p className="contact-v2__error">
+                            Something went wrong — please try again, or reach us
+                            directly on WhatsApp.
+                        </p>
+                    )}
                 </form>
             </div>
         </section>

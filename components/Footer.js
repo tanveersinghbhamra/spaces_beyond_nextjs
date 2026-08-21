@@ -49,7 +49,7 @@ export default function Footer({ content }) {
                 </div>
 
                 <div className="footer__bottom">
-                    <p className="footer__copy">© 2025 Spaces & Beyond Real Estate LLC. All rights reserved. Dubai, UAE.</p>
+                    <p className="footer__copy">© 2026 Spaces & Beyond Real Estate LLC. All rights reserved. Dubai, UAE.</p>
                     <div className="footer__socials">
                         <a href={c.instagram_url} target="_blank" rel="noopener" className="footer__social" aria-label="Instagram">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>

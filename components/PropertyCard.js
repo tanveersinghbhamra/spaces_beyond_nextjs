@@ -48,10 +48,9 @@ function SpecIcon({ name }) {
     );
 }
 
-const FALLBACK_IMG =
-    "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=700&q=60";
+const FALLBACK_IMG = "https://images.pexels.com/photos/10647324/pexels-photo-10647324.jpeg";
 
-export default function PropertyCard({ property, priority }) {
+export default function PropertyCard({ property }) {
     const images = (
         Array.isArray(property.images) && property.images.length
             ? property.images
@@ -90,7 +89,7 @@ export default function PropertyCard({ property, priority }) {
                             key={i}
                             src={img.startsWith("http") ? img : `/${img}`}
                             alt={`${property.name}: photo ${i + 1}`}
-                            loading={priority && i === 0 ? "eager" : "lazy"}
+                            loading="lazy"
                             decoding="async"
                             onError={(e) => {
                                 e.currentTarget.src = FALLBACK_IMG;

@@ -51,11 +51,7 @@ export default function Properties({ content }) {
 
                 <div className="properties__grid" ref={trackRef}>
                     {content.properties.map((p, i) => (
-                        <PropertyCard
-                            key={p.id || i}
-                            property={p}
-                            priority={i === 0}
-                        />
+                        <PropertyCard key={p.id || i} property={p} />
                     ))}
                 </div>
 

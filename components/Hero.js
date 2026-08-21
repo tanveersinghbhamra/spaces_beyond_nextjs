@@ -5,9 +5,8 @@ export default function Hero({ content }) {
             <div className="hero__screen">
                 <img
                     className="hero__bg-image"
-                    // src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg"
                     // src="https://images.pexels.com/photos/30445927/pexels-photo-30445927.jpeg"
-                    src="https://images.pexels.com/photos/28350364/pexels-photo-28350364.jpeg"
+                    src="images/heroImage.avif"
                     // src="https://images.pexels.com/photos/36134182/pexels-photo-36134182.jpeg"
                     alt="Dubai skyline luxury real estate"
                     loading="eager"
