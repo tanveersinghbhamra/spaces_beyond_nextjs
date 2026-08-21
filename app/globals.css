@@ -3614,6 +3614,21 @@ a.contact-info__value:hover {
     .calc-lead__row {
         flex-direction: column;
     }
+    .calc-donut {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .calc-donut__item {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .calc-donut__lbl {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    .calc-donut__val {
+        flex-shrink: 0;
+    }
 } /* ============================================================
    REVIEW.CSS — Spaces & Beyond Real Estate — v4 FINAL
    ============================================================ */
