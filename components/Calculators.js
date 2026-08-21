@@ -62,10 +62,31 @@ function ResultRow({ label, value, variant, style }) {
 
 function LeadCapture({ title, sub }) {
     const [value, setValue] = useState("");
-    const [sent, setSent] = useState(false);
-    const submit = () => {
-        if (!value.trim()) return;
-        setSent(true);
+    const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+    const submit = async () => {
+        if (!value.trim() || status === "sending") return;
+        setStatus("sending");
+        try {
+            const r = await fetch("/api/odoo-lead", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ phone: value.trim(), source: title }),
+            });
+            const data = await r.json().catch(() => ({}));
+
+            if (data.fallback === "whatsapp") {
+                const text = `New enquiry from spacesandbeyond.ae\nSource: ${title}\nWhatsApp number: ${value.trim()}`;
+                const waUrl = `https://wa.me/971509515827?text=${encodeURIComponent(text)}`;
+                window.location.href = waUrl;
+                return;
+            }
+
+            if (!r.ok) throw new Error(data.error || "Submission failed");
+            setStatus("sent");
+        } catch (err) {
+            console.error("[lead capture]", err.message);
+            setStatus("error");
+        }
     };
     return (
         <div className="calc-lead">
@@ -78,16 +99,27 @@ function LeadCapture({ title, sub }) {
                     placeholder="Your WhatsApp number"
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    disabled={sent}
+                    disabled={status === "sending" || status === "sent"}
                 />
                 <button
-                    className={`calc-lead__btn${sent ? " sent" : ""}`}
+                    className={`calc-lead__btn${status === "sent" ? " sent" : ""}`}
                     onClick={submit}
-                    disabled={sent}
+                    disabled={status === "sending" || status === "sent"}
                 >
-                    {sent ? "✓ Sent!" : "Send →"}
+                    {status === "sent"
+                        ? "✓ Sent!"
+                        : status === "sending"
+                          ? "Sending…"
+                          : status === "error"
+                            ? "Try Again"
+                            : "Send →"}
                 </button>
             </div>
+            {status === "error" && (
+                <p className="calc-lead__error">
+                    Something went wrong — please try WhatsApp directly instead.
+                </p>
+            )}
         </div>
     );
 }

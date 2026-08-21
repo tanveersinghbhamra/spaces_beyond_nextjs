@@ -21,12 +21,28 @@ export default function Contact({ content }) {
             const r = await fetch("/api/odoo-lead", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form),
+                body: JSON.stringify({ ...form, source: "Contact form" }),
             });
-            if (!r.ok) {
-                const e2 = await r.json();
-                throw new Error(e2.error || "Submission failed");
+            const data = await r.json().catch(() => ({}));
+
+            if (data.fallback === "whatsapp") {
+                const lines = [
+                    `New enquiry from spacesandbeyond.ae`,
+                    `Name: ${form.firstName} ${form.lastName}`.trim(),
+                    form.email && `Email: ${form.email}`,
+                    form.phone && `Phone: ${form.phone}`,
+                    form.interest && `Interested in: ${form.interest}`,
+                    form.message && `Message: ${form.message}`,
+                ]
+                    .filter(Boolean)
+                    .join("\n");
+                const waUrl = `https://wa.me/971509515827?text=${encodeURIComponent(lines)}`;
+                window.location.href = waUrl;
+                return;
             }
+
+            if (!r.ok) throw new Error(data.error || "Submission failed");
+
             setStatus("sent");
             setForm({
                 firstName: "",

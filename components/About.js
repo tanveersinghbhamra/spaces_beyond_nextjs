@@ -4,8 +4,7 @@ export default function About({ content }) {
         <section className="section" id="about" aria-labelledby="about-title">
             <div className="about__centered">
                 <h2 className="about__centered-title" id="about-title">
-                    {a.title}
-                    <em>{a.title_em}</em>
+                    {a.title} <em>{a.title_em}</em>
                     <br />
                     {a.title2}
                 </h2>

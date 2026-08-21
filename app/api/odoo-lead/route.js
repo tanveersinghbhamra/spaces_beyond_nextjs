@@ -1,19 +1,16 @@
 /**
  * app/api/odoo-lead/route.js — Spaces & Beyond Real Estate
  *
- * Takes a contact form submission and creates a lead directly in the
- * client's Odoo CRM (crm.lead model), via Odoo's JSON-RPC API.
- *
- * Needs 4 env vars, from the client's Odoo admin:
- *   ODOO_URL       e.g. https://clientcompany.odoo.com
- *   ODOO_DB        the database name (often same as the subdomain)
- *   ODOO_USERNAME  a login with permission to create CRM leads
- *   ODOO_PASSWORD  that account's password, or an API key
+ * Tries to create a lead in the client's Odoo CRM via JSON-RPC. If Odoo
+ * isn't configured (env vars missing) or the call fails for any reason,
+ * responds with `fallback: 'whatsapp'` so the browser can redirect the
+ * visitor straight to WhatsApp with their details pre-filled instead —
+ * see Contact.js / Calculators.js for that redirect logic.
  *
  * NOT YET VERIFIED against a real Odoo instance — built directly from
- * Odoo's documented JSON-RPC pattern, but needs a real test submission
- * once real credentials are available. Test by submitting the live
- * contact form and confirming a new lead appears in Odoo's CRM > Leads.
+ * Odoo's documented JSON-RPC pattern. Test by submitting the live form
+ * once real ODOO_URL/ODOO_DB/ODOO_USERNAME/ODOO_PASSWORD are set, and
+ * confirm a lead actually appears in Odoo's CRM > Leads.
  */
 
 async function odooCall(url, service, method, args) {
@@ -38,26 +35,20 @@ export async function POST(request) {
     const ODOO_DB = process.env.ODOO_DB;
     const ODOO_USERNAME = process.env.ODOO_USERNAME;
     const ODOO_PASSWORD = process.env.ODOO_PASSWORD;
+    const odooConfigured =
+        ODOO_URL && ODOO_DB && ODOO_USERNAME && ODOO_PASSWORD;
 
-    if (!ODOO_URL || !ODOO_DB || !ODOO_USERNAME || !ODOO_PASSWORD) {
-        console.error(
-            "[odoo-lead] Missing ODOO_URL/ODOO_DB/ODOO_USERNAME/ODOO_PASSWORD env vars",
-        );
-        return Response.json(
-            {
-                error: "Unable to submit right now — please try WhatsApp instead.",
-            },
-            { status: 500 },
-        );
+    // No Odoo set up at all — tell the browser to fall back to WhatsApp
+    // immediately, no point even validating first.
+    if (!odooConfigured) {
+        return Response.json({ fallback: "whatsapp" }, { status: 200 });
     }
 
     try {
         const body = await request.json();
-        const { firstName, lastName, email, phone, interest, message } = body;
+        const { firstName, lastName, email, phone, interest, message, source } =
+            body;
 
-        // Basic validation — required fields present, sane email shape,
-        // and a hard cap on every field's length so nobody can flood the
-        // client's CRM with megabyte-sized junk submissions.
         const MAX = {
             firstName: 80,
             lastName: 80,
@@ -68,13 +59,15 @@ export async function POST(request) {
         };
         const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (!firstName || !email) {
+        const hasFullDetails = firstName && email;
+        const hasPhoneOnly = phone && phone.trim().length >= 6;
+        if (!hasFullDetails && !hasPhoneOnly) {
             return Response.json(
-                { error: "Please fill in your name and email." },
+                { error: "Please provide your contact details." },
                 { status: 400 },
             );
         }
-        if (!EMAIL_RE.test(email)) {
+        if (email && !EMAIL_RE.test(email)) {
             return Response.json(
                 { error: "Please enter a valid email address." },
                 { status: 400 },
@@ -89,7 +82,6 @@ export async function POST(request) {
             }
         }
 
-        // Step 1 — authenticate, get a user id for subsequent calls
         const uid = await odooCall(ODOO_URL, "common", "authenticate", [
             ODOO_DB,
             ODOO_USERNAME,
@@ -101,9 +93,13 @@ export async function POST(request) {
                 "Odoo authentication failed — check ODOO_USERNAME/ODOO_PASSWORD",
             );
 
-        // Step 2 — create the CRM lead
-        const fullName = `${firstName} ${lastName || ""}`.trim();
-        const leadId = await odooCall(ODOO_URL, "object", "execute_kw", [
+        const fullName = firstName
+            ? `${firstName} ${lastName || ""}`.trim()
+            : "Website Lead (phone only)";
+        const leadLabel = source
+            ? `Website enquiry — ${source}`
+            : "Website enquiry";
+        await odooCall(ODOO_URL, "object", "execute_kw", [
             ODOO_DB,
             uid,
             ODOO_PASSWORD,
@@ -111,27 +107,25 @@ export async function POST(request) {
             "create",
             [
                 {
-                    name: `Website enquiry — ${fullName}`,
+                    name: `${leadLabel} — ${fullName}`,
                     contact_name: fullName,
-                    email_from: email,
+                    email_from: email || "",
                     phone: phone || "",
-                    description: `Interested in: ${interest || "Not specified"}\n\n${message || ""}`,
-                    source_id: false, // optionally set to a "Website" source record id in Odoo
+                    description: `Source: ${source || "Contact form"}\nInterested in: ${interest || "Not specified"}\n\n${message || ""}`,
+                    source_id: false,
                 },
             ],
         ]);
 
-        return Response.json({ ok: true, leadId });
+        return Response.json({ ok: true });
     } catch (err) {
-        // Log the real error server-side for debugging, but never send
-        // Odoo's internal error details (schema names, stack traces,
-        // etc.) back to whoever is submitting the form.
-        console.error("[odoo-lead]", err.message);
-        return Response.json(
-            {
-                error: "Unable to submit right now — please try WhatsApp instead.",
-            },
-            { status: 500 },
+        // Odoo is configured but the call itself failed (wrong creds,
+        // plan doesn't support External API, temporary outage, etc.) —
+        // same fallback signal, so the visitor still gets through.
+        console.error(
+            "[odoo-lead] Odoo call failed, falling back to WhatsApp:",
+            err.message,
         );
+        return Response.json({ fallback: "whatsapp" }, { status: 200 });
     }
 }
