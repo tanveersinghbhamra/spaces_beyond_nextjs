@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from 'next/link';
 
 const NAV_LINKS = [
-    { href: "#about", label: "About" },
-    { href: "#properties", label: "Properties" },
-    { href: "#services", label: "Services" },
-    { href: "#calculators", label: "Calculators" },
-    { href: "#team", label: "Team" },
-    { href: "#contact", label: "Contact" },
+    { href: "/#about", label: "About Us" },
+    { href: "/#properties", label: "Properties" },
+    { href: "/#services", label: "Services" },
+    { href: "/#calculators", label: "Calculators" },
+    { href: "/#team", label: "Team" },
+    { href: "/#contact", label: "Contact" },
 ];
 
 export default function Navbar({ content }) {
@@ -92,14 +93,14 @@ export default function Navbar({ content }) {
 
             <nav className={`navbar${scrolled ? " is-scrolled" : ""}`}>
                 <div className="navbar__main">
-                    <a
-                        href="#home"
+                    <Link
+                        href="/"
                         className="navbar__logo"
                         aria-label="Spaces & Beyond Home"
                     >
-                        Spaces & Beyond
-                        <span>Real Estate</span>
-                    </a>
+                        Spaces And Beyond
+                        <span>Real Estate L.L.C</span>
+                    </Link>
 
                     <a
                         href={content.contact.whatsapp_href}
@@ -126,9 +127,9 @@ export default function Navbar({ content }) {
                     <ul className="navbar__links" role="list">
                         {NAV_LINKS.map((l) => (
                             <li key={l.href}>
-                                <a href={l.href} className="navbar__link">
+                                <Link href={l.href} className="navbar__link">
                                     {l.label}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -141,15 +142,15 @@ export default function Navbar({ content }) {
                 aria-modal="true"
                 aria-label="Mobile navigation"
             >
-                {NAV_LINKS.filter((l) => l.href !== "#contact").map((l) => (
-                    <a
+                {NAV_LINKS.filter((l) => l.href !== "/#contact").map((l) => (
+                    <Link
                         key={l.href}
                         href={l.href}
                         className="navbar__drawer-link"
                         onClick={() => setDrawerOpen(false)}
                     >
                         {l.label}
-                    </a>
+                    </Link>
                 ))}
                 <a
                     href={content.contact.whatsapp_href}

@@ -211,7 +211,7 @@ select {
     gap: var(--space-sm);
     font-family: var(--font-body);
     font-size: 0.75rem; /* ← INCREASED from var(--text-xs) ~0.6rem */
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 0.38em;
     text-transform: uppercase;
     color: var(--color-gold);
@@ -221,7 +221,7 @@ select {
     content: "";
     width: 30px;
     height: 1px;
-    background: var(--color-gold);
+    background: var(--color-gold-dark);
     flex-shrink: 0;
 }
 
@@ -1258,10 +1258,11 @@ html:not(.js-fade-ready) .hero__video {
     background: #ffffff;
 }
 .services-v3 .eyebrow {
-    color: #000000;
+    color: var(--color-gold-dark);
 }
 .services-v3 .eyebrow::before {
-    background: var(--color-gold);
+    background: var(--color-gold-dark);
+
 }
 .services-v3 .section-title {
     color: #000000;
@@ -1544,10 +1545,11 @@ html:not(.js-fade-ready) .hero__video {
    ============================================================ */
 
 #properties .eyebrow {
-    color: #000000;
+    color: var(--color-gold-dark);
 }
 #properties .eyebrow::before {
-    background: #000000;
+    background: var(--color-gold-dark);
+
 }
 #properties .section-title em {
     color: var(--color-gold);
@@ -1911,10 +1913,12 @@ html:not(.js-fade-ready) .hero__video {
    ============================================================ */
 
 #team .eyebrow {
-    color: #000000;
+    color: var(--color-gold-dark);
+
 }
 #team .eyebrow::before {
-    background: #000000;
+    background: var(--color-gold-dark);
+
 }
 #team .section-title em {
     color: var(--color-gold);
@@ -4125,4 +4129,49 @@ a.review__contact-item:hover .review__contact-icon {
 .tr-section__cta:hover {
     color: #000000;
     border-color: #000000;
+}
+
+/* Mobile default — stacked (this already looks good per your last check) */
+.footer__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+.footer__bottom-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+}
+.footer__legal-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.footer__legal-link {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+}
+.footer__legal-link:hover {
+    color: #ffffff;
+}
+.footer__legal-sep {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.78rem;
+}
+
+/* Desktop — one row: copyright | legal links | social icons */
+@media (min-width: 769px) {
+    .footer__bottom {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .footer__bottom-row {
+        flex-direction: row;
+        text-align: left;
+        gap: 40px;  /* was 20px — more horizontal space between copyright and legal links */
+    }
 }
