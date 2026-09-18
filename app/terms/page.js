@@ -3,7 +3,7 @@ import Footer from "../../components/Footer";
 import { getContent } from "../../lib/getContent";
 
 export const metadata = {
-    title: "Terms & Conditions | Spaces & Beyond Real Estate",
+    title: "Terms & Conditions | Spaces And Beyond Real Estate L.L.C",
     robots: "index, follow",
 };
 
@@ -39,14 +39,14 @@ export default async function TermsAndConditions() {
 
                 <p>
                     These Terms &amp; Conditions govern your use of
-                    spacesandbeyond.ae, operated by Spaces &amp; Beyond Real
+                    spacesandbeyond.ae, operated by Spaces And Beyond Real
                     Estate L.L.C. ("we", "us", "our"). By using this Site, you
                     agree to these terms.
                 </p>
 
                 <h2 style={{ marginTop: 40 }}>1. About Us</h2>
                 <p>
-                    Spaces &amp; Beyond Real Estate L.L.C. is a licensed real
+                    Spaces And Beyond Real Estate L.L.C. is a licensed real
                     estate brokerage operating in Dubai, United Arab Emirates.
                     <br />
                     DED Trade License No.: 1392946
@@ -99,7 +99,7 @@ export default async function TermsAndConditions() {
                 <h2 style={{ marginTop: 40 }}>6. Intellectual Property</h2>
                 <p>
                     All content on this Site — including text, images, and
-                    design — is owned by or licensed to Spaces &amp; Beyond Real
+                    design — is owned by or licensed to Spaces And Beyond Real
                     Estate L.L.C. and may not be reproduced without permission.
                 </p>
 
@@ -118,7 +118,7 @@ export default async function TermsAndConditions() {
 
                 <h2 style={{ marginTop: 40 }}>9. Contact Us</h2>
                 <p>
-                    Spaces &amp; Beyond Real Estate L.L.C.
+                    Spaces And Beyond Real Estate L.L.C.
                     <br />
                     Office No. C-02-208, Building Owned by Saeed Bin Jumaa Bin Saeed Al Henai, Al Nahda 2, Dubai, UAE
                     <br />

@@ -2,12 +2,12 @@ import "./globals.css";
 import CustomCursor from "../components/CustomCursor";
 
 export const metadata = {
-    title: "Spaces & Beyond Real Estate: Dubai's Premier Property Partner",
+    title: "Spaces And Beyond Real Estate L.L.C: Dubai's Premier Property Partner",
     description:
         "Dubai's premier luxury real estate brokerage. $100M+ in transactions. Buying, selling & investing across Dubai's finest addresses.",
     robots: "index, follow",
     alternates: {
-        canonical: "https://spaces-and-beyond.vercel.app/",
+        canonical: "https://spacesandbeyond.ae/",
     },
     icons: {
         icon: [
@@ -23,26 +23,26 @@ export const metadata = {
     openGraph: {
         type: "website",
         locale: "en_AE",
-        title: "Spaces & Beyond Real Estate: Dubai's Premier Property Partner",
+        title: "Spaces And Beyond Real Estate L.L.C: Dubai's Premier Property Partner",
         description:
             "$100M+ in transactions. Precision-driven, globally informed real estate advisory in Dubai.",
-        url: "https://spaces-and-beyond.vercel.app",
-        siteName: "Spaces & Beyond Real Estate",
+        url: "https://spacesandbeyond.ae/",
+        siteName: "Spaces And Beyond Real Estate L.L.C",
         images: [
             {
-                url: "https://spaces-and-beyond.vercel.app/images/previewImage.png",
+                url: "https://spacesandbeyond.ae/images/previewImage.png",
                 width: 1200,
                 height: 630,
-                alt: "Spaces & Beyond Real Estate — Dubai",
+                alt: "Spaces And Beyond Real Estate L.L.C — Dubai",
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "Spaces & Beyond Real Estate",
+        title: "Spaces And Beyond Real Estate L.L.C",
         description: "Dubai's premier luxury real estate brokerage.",
         images: [
-            "https://spaces-and-beyond.vercel.app/images/previewImage.png",
+            "https://spacesandbeyond.ae/images/previewImage.png",
         ],
     },
 };
@@ -73,14 +73,14 @@ export default function RootLayout({ children }) {
                         __html: JSON.stringify({
                             "@context": "https://schema.org",
                             "@type": "RealEstateAgent",
-                            name: "Spaces & Beyond Real Estate LLC",
-                            image: "https://spaces-and-beyond.vercel.app/images/previewImage.png",
-                            url: "https://spaces-and-beyond.vercel.app",
+                            name: "Spaces And Beyond Real Estate L.L.C",
+                            image: "https://spacesandbeyond.ae/images/previewImage.png",
+                            url: "https://spacesandbeyond.ae/",
                             telephone: "+971509515827",
                             priceRange: "AED",
                             address: {
                                 "@type": "PostalAddress",
-                                streetAddress: "Office 208-141-1, Mankhool",
+                                streetAddress: "Office No. C-02-208, Building Owned by Saeed Bin Jumaa Bin Saeed Al Henai, Al Nahda 2, Dubai, UAE",
                                 addressLocality: "Dubai",
                                 addressCountry: "AE",
                             },

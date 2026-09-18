@@ -3,7 +3,7 @@ import Footer from "../../components/Footer";
 import { getContent } from "../../lib/getContent";
 
 export const metadata = {
-    title: "Privacy Policy | Spaces & Beyond Real Estate",
+    title: "Privacy Policy | Spaces And Beyond Real Estate L.L.C",
     robots: "index, follow",
 };
 
@@ -38,7 +38,7 @@ export default async function PrivacyPolicy() {
                 </p>
 
                 <p>
-                    Spaces &amp; Beyond Real Estate L.L.C. ("we", "us", "our")
+                    Spaces And Beyond Real Estate L.L.C. ("we", "us", "our")
                     operates spacesandbeyond.ae (the "Site"). This Privacy
                     Policy explains how we collect, use, and protect your
                     personal information when you visit our Site or contact us
@@ -99,7 +99,7 @@ export default async function PrivacyPolicy() {
 
                 <h2 style={{ marginTop: 40 }}>7. Contact Us</h2>
                 <p>
-                    Spaces &amp; Beyond Real Estate L.L.C.
+                    Spaces And Beyond Real Estate L.L.C.
                     <br />
                     Office No. C-02-208, Building Owned by Saeed Bin Jumaa Bin Saeed Al Henai, Al Nahda 2, Dubai, UAE
                     <br />
