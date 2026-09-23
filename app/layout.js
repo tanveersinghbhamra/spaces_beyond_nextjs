@@ -41,9 +41,10 @@ export const metadata = {
         card: "summary_large_image",
         title: "Spaces And Beyond Real Estate L.L.C",
         description: "Dubai's premier luxury real estate brokerage.",
-        images: [
-            "https://spacesandbeyond.ae/images/previewImage.png",
-        ],
+        images: ["https://spacesandbeyond.ae/images/previewImage.png"],
+    },
+    other: {
+        "facebook-domain-verification": "8jmp0q1vz2oi0ep3qwqf19b6sc44xt",
     },
 };
 
@@ -67,8 +68,6 @@ export default function RootLayout({ children }) {
                 />
                 <script
                     type="application/ld+json"
-                    // Structured data for search engines — RealEstateAgent
-                    // schema, same as the vanilla-HTML version had.
                     dangerouslySetInnerHTML={{
                         __html: JSON.stringify({
                             "@context": "https://schema.org",
@@ -80,7 +79,8 @@ export default function RootLayout({ children }) {
                             priceRange: "AED",
                             address: {
                                 "@type": "PostalAddress",
-                                streetAddress: "Office No. C-02-208, Building Owned by Saeed Bin Jumaa Bin Saeed Al Henai, Al Nahda 2, Dubai, UAE",
+                                streetAddress:
+                                    "Office No. C-02-208, Building Owned by Saeed Bin Jumaa Bin Saeed Al Henai, Al Nahda 2, Dubai, UAE",
                                 addressLocality: "Dubai",
                                 addressCountry: "AE",
                             },
