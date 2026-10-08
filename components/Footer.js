@@ -52,7 +52,7 @@ export default function Footer({ content }) {
 
                 <div className="footer__bottom">
                     <div className="footer__bottom-row">
-                        <p className="footer__copy">© 2026 Spaces And Beyond Real Estate L.L.C. All rights reserved. Dubai, UAE.</p>
+                        <p className="footer__copy">Copyright ©️ 2026 SPACES AND BEYOND REAL ESTATE L.L.C. All rights reserved.</p>
                         <div className="footer__legal-links">
                             <Link href="/terms" className="footer__legal-link">Terms & Conditions</Link>
                             <span className="footer__legal-sep">·</span>
